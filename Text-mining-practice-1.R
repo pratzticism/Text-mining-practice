@@ -1,0 +1,60 @@
+source("https://bioconductor.org/biocLite.R")
+biocLite("Rgraphviz", supressUpdates = TRUE)
+library(tm)
+library(SnowballC)
+library(readr)
+path <- "~/C:/Users/dexter/Documents/Applied Data Analyses/ecigs_merged_justtweets_7_17 copy"
+dirCorpus <- Corpus(DirSource(path))
+?read.csv
+f <- read.csv(ecigs_merged_justtweets_7_17 copy)
+read.csv(ecigs_merged_justtweets_7_17 copy)
+getwd()
+f <- read.csv("ecigs_merged_justtweets_7_17 copy.csv", FALSE, ",")
+class(f)
+head(f)
+f
+as.matrix(f)
+as.array(f)
+as.vector(f)
+as.data.frame(f)
+tweetCorpus <- Corpus(VectorSource(f$V1))
+tweetCorpus
+for (i in 1:length(tweetCorpus)) {
+  if (tweetCorpus[[i]]$content == "") {
+    tweetCorpus[[i]] <- NULL
+  }
+}
+tweetCorpus[[1]]$meta
+head(tweetCorpus[[1]]$content)
+removeURLs <- content_transformer(function(x) gsub("http[^[:space:]]*", "", 
+                                                   x))
+tweetCorpus <- tm_map(tweetCorpus, removeURLs)
+read_lines("ecigs_merged_justtweets")
+readLines("file:///C:/Users/dexter/Documents/Applied Data Analyses/ecigs_merged_justtweets.txt")
+str(readLines("file:///C:/Users/dexter/Documents/Applied Data Analyses/ecigs_merged_justtweets.txt"))
+f <- readLines("file:///C:/Users/dexter/Documents/Applied Data Analyses/ecigs_merged_justtweets.txt")
+head(f)
+str(f)
+gsub(pattern = "\\W", replace =" ", f)
+f2gsub <- gsub(pattern = "\\W", replace =" ", f)
+str(f2gsub)
+gsub(pattern = "\\d", replace =" ", f2gsub)  
+f2text <- gsub(pattern = "\\d", replace =" ", f2gsub)
+str(f2text)
+tolower(f2text)
+f3text <- tolower(f2text)
+f3text
+stopwords()
+removeWords(f2gsub, "b")
+f4gsub <- removeWords(f2gsub, "b")
+removeWords(f4gsub, c("http", "co", "t"))
+removeWords(f4gsub, stopwords())
+f5 <- removeWords(f4gsub, stopwords())
+removeWords(f5, c("http", "co", "t"))
+f6 <- removeWords(f5, c("http", "co", "t"))
+gsub(pattern = "\\b[A-z]\\b{1}", replace=" ", f6)
+f7 <- gsub(pattern = "\\b[A-z]\\b{1}", replace=" ", f6)
+head(f7)
+tolower(f7)
+f8 <- tolower(f7)
+head(f8)
