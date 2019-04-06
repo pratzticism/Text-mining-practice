@@ -1,0 +1,62 @@
+---
+title: "Text mining practice html"
+author: "Pratik"
+date: "April 5, 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+
+text <- readLines(file.choose("ecigs_merged_justtweets.txt"))
+rm()
+
+tline <- readLines(file.choose("ecigs_merged_justtweets.txt"))
+tline
+doctline <- Corpus(VectorSource(tline))
+inspect(doctline)
+toSpace <- content_transformer(function(x, pattern ) gsub(pattern, " ",x))
+doctline <- tm_map(doctline, toSpace, "/")
+doctline <- tm_map(doctline, toSpace, "@")
+doctline <- tm_map(doctline, toSpace, "\\|")
+doctline
+doctline1 <- tm_map(doctline, removeNumbers)
+inspect(doctline1)
+doctline2 <- tm_map(doctline1, removePunctuation)
+inspect(doctline2)
+doctline3 <- tm_map(doctline2, removeWords, stopwords())
+inspect(doctline3)
+doctline4 <- tm_map(doctline3, stripWhitespace)
+inspect(doctline4)
+doctline4 <- tm_map(doctline3, removeWords, c("tco", "b"))
+doctline5 <- tm_map(doctline4, removeWords, c("x..."))
+inspect(doctline5)
+doctline6 <- tm_map(doctline5, removeWords, c("tco", "b"))
+inspect(doctline6)
+?dtm2ldaformat
+dtm <- TermDocumentMatrix(doctline6)
+m <- as.matrix(dtm)
+
+
+
+
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
